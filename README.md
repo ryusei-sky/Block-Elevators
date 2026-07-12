@@ -35,17 +35,27 @@ Place elevator blocks vertically and jump to move up, or sneak to move down inst
 # elevator.use - Allows players to use elevators (Default: true)
 # elevator.reload - Allows reloading the configuration (Default: op)
 
-# Materials to be used as elevator blocks (e.g., IRON_BLOCK, GOLD_BLOCK)
+# Worlds where elevators are enabled
+# Empty list means all worlds
+worlds: []
+#  - world
+
+# Cooldown between elevator uses (seconds)
+# 0 disables cooldown
+cooldown: 0
+
+# Materials to be used as elevator blocks
 materials:
   - IRON_BLOCK
 
-# Maximum search range for elevators. Set to 0 for infinite range.
-max-search-range: 64
+# Maximum search range
+# 0 means unlimited
+max-search-range: 0
 
-# Sound Settings
 sound:
   enable: true
-  name: "ENTITY_ENDERMAN_TELEPORT"
+  name: entity_iron_golem_attack
   volume: 1.0
   jump-pitch: 1.2
   sneak-pitch: 0.8
+  ```
