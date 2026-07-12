@@ -32,27 +32,28 @@
 ## config.yml
 
 ```yml
-# Permissions:
-# elevator.use - Allows players to use elevators (Default: true)
-# elevator.reload - Allows reloading the configuration (Default: op)
+# 権限:
+# elevator.use - エレベーターを使う権限（デフォルトで全員に有効）
+# elevator.reload - 設定をリロードする権限（デフォルトでOPのみに有効）
 
-# Worlds where elevators are enabled
-# Empty list means all worlds
+# エレベーターを使えるワールド
+# リストが空の場合は全ワールドで有効
 worlds: []
 #  - world
 
-# Cooldown between elevator uses (seconds)
-# 0 disables cooldown
+# エレベーター使用時のクールダウン（秒）
+# 0で無効
 cooldown: 0
 
-# Materials to be used as elevator blocks
+# エレベーターとして使うブロック
 materials:
   - IRON_BLOCK
 
-# Maximum search range
-# 0 means unlimited
+# エレベーターの最大検出距離
+# 0で無制限
 max-search-range: 0
 
+# サウンド設定
 sound:
   enable: true
   name: entity_iron_golem_attack
