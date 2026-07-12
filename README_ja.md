@@ -1,5 +1,14 @@
 # Elevators
 
+<table>
+	<thead>
+		<tr>
+			<th style="text-align:center"><a href="README.md">English</a></th>
+			<th style="text-align:center">日本語</th>
+		</tr>
+	</thead>
+</table>
+
 ブロックを縦に並べるだけで使える、シンプルなエレベータープラグインです。
 
 デフォルトでは鉄ブロックを使用します。
