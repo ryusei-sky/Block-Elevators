@@ -3,78 +3,78 @@
 <table>
 	<thead>
 		<tr>
-			<th align="center">English</th>
-			<th align="center"><a href="README_ja.md">日本語</a></th>
+			<th align="center"><a href="README.md">English</a></th>
+			<th align="center">日本語</th>
 		</tr>
 	</thead>
 </table>
 
-A Paper plugin that lets you create elevators by stacking blocks vertically.
+ブロックを縦に積むだけで作れる、Paper向けのシンプルなエレベータープラグインです。
 
-Stand on an elevator block, then jump to go up or sneak to go down.
+エレベーターブロックの上でジャンプすると上へ、スニークすると下へ移動できます。
 
-## Demo
+## デモ
 
 <a href="https://youtu.be/RzJluRqwEJk">
   <img src="https://img.youtube.com/vi/RzJluRqwEJk/maxresdefault.jpg" alt="Block Elevators Demo" width="500">
 </a>
 
-## Download
+## ダウンロード
 
 - [GitHub Releases](https://github.com/ryusei-sky/Block-Elevators/releases/latest)
 - [Modrinth](https://modrinth.com/plugin/block-elevators)
 
-## Features
+## 特徴
 
-- Configurable elevator blocks
-- Customizable elevator behavior
-- Create hidden elevators using liquids, carpets, slabs, and other blocks
-- Supports Paper 1.21.x
+- エレベーターブロックを設定可能
+- 動作を細かくカスタマイズ可能
+- 液体、カーペット、ハーフブロックなどを使った隠しエレベーターを作成可能
+- Paper 1.21.x に対応
 
-## Installation
+## 導入方法
 
-1. Place the JAR file into your server's `plugins` folder.
-2. Start or restart your server.
-3. Edit `config.yml` to customize the plugin.
+1. JARファイルをサーバーの `plugins` フォルダに配置します。
+2. サーバーを起動または再起動します。
+3. 必要に応じて `config.yml` を編集します。
 
-## Commands
+## コマンド
 
-| Command | Description |
-|----------|-------------|
-| `/elevator reload` | Reload the configuration |
+| コマンド | 説明 |
+|----------|------|
+| `/elevator reload` |設定を再読み込み |
 
-## Permissions
+## 権限
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `elevator.use` | Allows players to use elevators | `true` |
-| `elevator.reload` | Allows reloading the configuration | `op` |
+| 権限 | 説明 | デフォルト |
+|------|------|-----------|
+| `elevator.use` | エレベーターをつかう | `true` |
+| `elevator.reload` | 設定を再読み込みする | `op` |
 
 ## config.yml
 
 ```yml
-# Permissions:
-# elevator.use - Permission to use elevators (enabled for all players by default)
-# elevator.reload - Permission to reload the configuration (enabled for OPs by default)
+# 権限:
+# elevator.use - エレベーターを使う権限（デフォルトで全員に有効）
+# elevator.reload - 設定を再読み込みする権限（デフォルトでOPに有効）
 
-# Worlds where elevators are enabled
-# Leave empty to enable elevators in all worlds
+# エレベーターを有効にするワールド
+# 空の場合はすべてのワールドで有効
 worlds: []
 #  - world
 
-# Cooldown between elevator uses (seconds)
-# Set to 0 to disable
+# エレベーター使用時のクールダウン（秒）
+# 0で無効
 cooldown: 0
 
-# Blocks that can be used as elevators
+# エレベーターとして使用できるブロック
 materials:
   - IRON_BLOCK
 
-# Maximum distance to search for elevators
-# Set to 0 for unlimited distance
+# エレベーターを検索する最大距離
+# 0で無制限
 max-search-range: 0
 
-# Sound settings
+# サウンド設定
 sound:
   enable: true
   name: entity.iron_golem.attack
@@ -83,6 +83,6 @@ sound:
   sneak-pitch: 0.8
 ```
 
-## License
+## ライセンス
 
 [MIT License](https://files.ryusei.space/docs/mit.txt)
