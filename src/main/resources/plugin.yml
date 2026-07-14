@@ -1,0 +1,15 @@
+name: Block-Elevators
+version: 1.0.0
+main: space.ryusei.blockelevators.BlockElevators
+api-version: '1.21'
+author: ryusei_sky
+
+commands:
+  block-elevators-reload:
+    permission: blockelevators.reload
+
+permissions:
+  blockelevators.use:
+    default: true
+  blockelevators.reload:
+    default: op

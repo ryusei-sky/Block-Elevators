@@ -1,0 +1,27 @@
+# Permissions:
+# blockelevators.use - Allows players to use elevators (Default: true)
+# blockelevators.reload - Allows reloading the configuration (Default: op)
+
+# Worlds where elevators are enabled
+# Empty list means all worlds
+worlds: []
+#  - world
+
+# Cooldown between elevator uses (seconds)
+# 0 disables cooldown
+cooldown: 0
+
+# Materials to be used as elevator blocks
+materials:
+  - IRON_BLOCK
+
+# Maximum search range
+# 0 means unlimited
+max-search-range: 0
+
+sound:
+  enable: true
+  name: entity.iron_golem.attack
+  volume: 1.0
+  jump-pitch: 1.2
+  sneak-pitch: 0.8
