@@ -1,4 +1,4 @@
-# Elevators
+# Block Elevators
 
 <table>
 	<thead>
@@ -9,37 +9,39 @@
 	</thead>
 </table>
 
-A simple and lightweight block-based elevator plugin for Paper.
+A Paper plugin that lets you create elevators by stacking blocks vertically.
 
-Place elevator blocks vertically and jump to travel upward or sneak to travel downward instantly.
+Stand on an elevator block, then jump to go up or sneak to go down.
+
+## Demo
+
+<a href="https://youtu.be/RzJluRqwEJk">
+  <img src="https://img.youtube.com/vi/RzJluRqwEJk/maxresdefault.jpg" alt="Block Elevators Demo" width="500">
+</a>
 
 ## Download
 
-Download the latest version from the [Releases](https://github.com/ryusei-sky/Elevators/releases/latest) page.
+- [GitHub Releases](https://github.com/ryusei-sky/Block-Elevators/releases/latest)
+- [Modrinth](https://modrinth.com/plugin/block-elevators)
 
 ## Features
 
-- Jump to travel upward
-- Sneak to travel downward
-- Customizable elevator block materials
-- Configurable maximum search range (`0` for unlimited)
-- Configurable teleport sounds (sound, volume, and pitch)
-- Cancels teleportation if the destination is blocked (Still works with liquids, carpets, slabs, and similar blocks, allowing you to camouflage the elevator's appearance.)
+- Configurable elevator blocks
+- Customizable elevator behavior
+- Create hidden elevators using liquids, carpets, slabs, and other blocks
 - Supports Paper 1.21.x
 
 ## Installation
 
-1. Download the latest release.
-2. Place the JAR file into your server's `plugins` folder.
-3. Start or restart your server.
-4. Edit `config.yml` if needed.
-5. Enjoy!
+1. Place the JAR file into your server's `plugins` folder.
+2. Start or restart your server.
+3. Edit `config.yml` to customize the plugin.
 
 ## Commands
 
 | Command | Description |
-|---------|-------------|
-| `/elevator reload` | Reloads the plugin configuration |
+|----------|-------------|
+| `/elevator reload` | Reload the configuration |
 
 ## Permissions
 
@@ -48,30 +50,31 @@ Download the latest version from the [Releases](https://github.com/ryusei-sky/El
 | `elevator.use` | Allows players to use elevators | `true` |
 | `elevator.reload` | Allows reloading the configuration | `op` |
 
-## Configuration
+## config.yml
 
 ```yml
 # Permissions:
-# elevator.use - Allows players to use elevators (Default: true)
-# elevator.reload - Allows reloading the configuration (Default: op)
+# elevator.use - Permission to use elevators (enabled for all players by default)
+# elevator.reload - Permission to reload the configuration (enabled for OPs by default)
 
 # Worlds where elevators are enabled
-# Empty list means all worlds
+# Leave empty to enable elevators in all worlds
 worlds: []
 #  - world
 
 # Cooldown between elevator uses (seconds)
-# 0 disables cooldown
+# Set to 0 to disable
 cooldown: 0
 
-# Materials to be used as elevator blocks
+# Blocks that can be used as elevators
 materials:
   - IRON_BLOCK
 
-# Maximum search range
-# 0 means unlimited
+# Maximum distance to search for elevators
+# Set to 0 for unlimited distance
 max-search-range: 0
 
+# Sound settings
 sound:
   enable: true
   name: entity.iron_golem.attack
@@ -82,4 +85,4 @@ sound:
 
 ## License
 
-This project is licensed under the MIT License.
+[MIT License](https://files.ryusei.space/docs/mit.txt)
