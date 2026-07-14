@@ -1,4 +1,4 @@
-# Elevators
+# Block Elevators
 
 <table>
 	<thead>
@@ -9,29 +9,35 @@
 	</thead>
 </table>
 
-ブロックを縦に並べるだけで使える、シンプルで軽量な Paper 向けエレベータープラグインです。
+ブロックを縦に並べるだけで使える、Paper 向けエレベータープラグインです。
 
-デフォルトでは鉄ブロックを使用します。
-エレベーターブロックの上でジャンプすると上階へ、スニークすると下階へ瞬時に移動できます。
+エレベーターブロック（デフォルトは鉄ブロック）の上で、ジャンプすると上へ、スニークすると下へ移動できます。
+
+## デモ
+
+<p align="center">
+  <a href="https://youtu.be/RzJluRqwEJk">
+    <img src="https://img.youtube.com/vi/RzJluRqwEJk/maxresdefault.jpg" alt="Block Elevators Demo" width="800">
+  </a>
+</p>
 
 ## ダウンロード
 
-最新版は [Releases](https://github.com/ryusei-sky/Elevators/releases/latest) からダウンロードできます。
+- [GitHub Releases](https://github.com/ryusei-sky/Block-Elevators/releases/latest)
+- [Modrinth](https://modrinth.com/plugin/block-elevators)
 
 ## 特徴
 
-- エレベーターとして使用するブロックを自由に設定可能
-- エレベーターの最大検出距離を設定可能（`0` で無制限）
-- テレポート時のサウンド（種類・音量・ピッチ）を設定可能
-- 移動先が塞がれている場合はテレポートをキャンセル (液体、カーペット、ハーフブロックなどがあっても動作するので、見た目をカモフラージュすることも可能)
+- エレベーターブロックを自由に設定可能
+- 動作を細かくカスタマイズ可能
+- 液体やカーペット、ハーフブロックなどを利用してカモフラージュ可能
 - Paper 1.21.x に対応
 
 ## 導入方法
 
-1. 最新版をダウンロードします。
-2. JARファイルをサーバーの `plugins` フォルダへ配置します。
-3. サーバーを起動または再起動します。
-4. 必要に応じて `config.yml` を編集してください。
+1. JARファイルをサーバーの `plugins` フォルダへ配置します。
+2. サーバーを起動または再起動します。
+3. 必要に応じて `config.yml` を編集してください。
 
 ## コマンド
 
@@ -43,8 +49,8 @@
 
 | 権限 | 説明 | デフォルト |
 |------|------|-----------|
-| `elevator.use` | エレベーターを使用する権限 | `true` |
-| `elevator.reload` | 設定を再読み込みする権限 | `op` |
+| `elevator.use` | エレベーターを使用 | `true` |
+| `elevator.reload` | 設定を再読み込み | `op` |
 
 ## config.yml
 
@@ -66,7 +72,7 @@ cooldown: 0
 materials:
   - IRON_BLOCK
 
-# エレベーターの最大検出距離
+# エレベーターの最大検索距離
 # 0で無制限
 max-search-range: 0
 
@@ -81,4 +87,4 @@ sound:
 
 ## ライセンス
 
-このプロジェクトは MIT License のもとで公開されています。
+[MIT License](https://files.ryusei.space/docs/mit.txt)
