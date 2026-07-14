@@ -1,5 +1,7 @@
 # Block Elevators
 
+もうすぐModrinthで公開するよ
+
 <table>
 	<thead>
 		<tr>
