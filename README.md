@@ -9,6 +9,8 @@
 	</thead>
 </table>
 
+正式リリースはしてないです
+
 A Paper plugin that lets you create elevators by stacking blocks vertically.
 
 Create elevators with blocks. Jump up, sneak down.
