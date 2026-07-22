@@ -9,7 +9,7 @@
 	</thead>
 </table>
 
-正式リリースはしてないです
+Modrinthの審査に時間がかかっています、今はReleases使ってください
 
 A Paper plugin that lets you create elevators by stacking blocks vertically.
 
