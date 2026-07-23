@@ -27,7 +27,7 @@ public final class BlockElevators extends JavaPlugin implements Listener {
 
     private final Set<Material> materials = new HashSet<>();
     private final Set<String> worlds = new HashSet<>();
-    private final Map<UUID, Long> cooldown = new HashMap<>();
+    private final Map<UUID, Long> cooldowns = new HashMap<>();
 
     private int maxRange;
     private int cooldownSeconds;
@@ -54,9 +54,7 @@ public final class BlockElevators extends JavaPlugin implements Listener {
         saveDefaultConfig();
         loadConfig();
 
-        getServer()
-                .getPluginManager()
-                .registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(this, this);
 
         if (getCommand("block-elevators-reload") != null) {
             getCommand("block-elevators-reload").setExecutor(this);
@@ -67,10 +65,8 @@ public final class BlockElevators extends JavaPlugin implements Listener {
         reloadConfig();
 
         materials.clear();
-
         for (String name : getConfig().getStringList("materials")) {
             Material material = Material.matchMaterial(name);
-
             if (material != null) {
                 materials.add(material);
             }
@@ -119,17 +115,30 @@ public final class BlockElevators extends JavaPlugin implements Listener {
 
         loadConfig();
         sender.sendMessage("§aBlock Elevators reloaded");
-
         return true;
     }
 
     @EventHandler
     public void onJump(PlayerMoveEvent event) {
         if (event.getTo() == null) return;
-        if (event.getFrom().getY() >= event.getTo().getY()) return;
+
+        double yDiff = event.getTo().getY() - event.getFrom().getY();
+        Player player = event.getPlayer();
+
+        int jumpBoostLevel = 0;
+        if (player.hasPotionEffect(org.bukkit.potion.PotionEffectType.JUMP_BOOST)) {
+            var effect = player.getPotionEffect(org.bukkit.potion.PotionEffectType.JUMP_BOOST);
+            if (effect != null) {
+                jumpBoostLevel = effect.getAmplifier() + 1;
+            }
+        }
+
+        double minJumpVelocity = 0.41 + 0.1 * jumpBoostLevel;
+
+        if (yDiff < minJumpVelocity || yDiff > (minJumpVelocity + 0.1)) return;
 
         useElevator(
-                event.getPlayer(),
+                player,
                 Direction.UP,
                 jumpPitch
         );
@@ -148,7 +157,7 @@ public final class BlockElevators extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        cooldown.remove(event.getPlayer().getUniqueId());
+        cooldowns.remove(event.getPlayer().getUniqueId());
     }
 
     private void useElevator(
@@ -158,12 +167,11 @@ public final class BlockElevators extends JavaPlugin implements Listener {
     ) {
         if (!player.hasPermission("blockelevators.use")) return;
 
-        if (!worlds.isEmpty()
-                && !worlds.contains(player.getWorld().getName())) {
+        if (!worlds.isEmpty() && !worlds.contains(player.getWorld().getName())) {
             return;
         }
 
-        if (isCooldown(player)) return;
+        if (hasCooldown(player)) return;
 
         Block start = player.getLocation()
                 .subtract(0, 0.1, 0)
@@ -172,8 +180,9 @@ public final class BlockElevators extends JavaPlugin implements Listener {
         if (!materials.contains(start.getType())) return;
 
         Location destination = findDestination(start, direction);
-
         if (destination == null) return;
+
+        applyCooldown(player);
 
         destination.setYaw(player.getLocation().getYaw());
         destination.setPitch(player.getLocation().getPitch());
@@ -198,26 +207,31 @@ public final class BlockElevators extends JavaPlugin implements Listener {
         int min = start.getWorld().getMinHeight();
         int max = start.getWorld().getMaxHeight();
 
-        int limit = maxRange <= 0
-                ? direction == Direction.UP ? max : min
-                : start.getY() + direction.value * maxRange;
+        int limit;
+        if (maxRange <= 0) {
+            limit = (direction == Direction.UP) ? max : min;
+        } else {
+            limit = (direction == Direction.UP) 
+                    ? start.getY() + maxRange 
+                    : start.getY() - maxRange;
+        }
+
+        limit = Math.max(min, Math.min(max, limit));
 
         for (
                 int y = start.getY() + direction.value;
                 direction == Direction.UP ? y <= limit : y >= limit;
                 y += direction.value
         ) {
-            Block block = start.getWorld()
-                    .getBlockAt(
-                            start.getX(),
-                            y,
-                            start.getZ()
-                    );
+            Block block = start.getWorld().getBlockAt(
+                    start.getX(),
+                    y,
+                    start.getZ()
+            );
 
             if (!materials.contains(block.getType())) continue;
 
-            Location location = block.getLocation()
-                    .add(0.5, 1, 0.5);
+            Location location = block.getLocation().add(0.5, 1, 0.5);
 
             if (isSafe(location)) {
                 return location;
@@ -229,34 +243,25 @@ public final class BlockElevators extends JavaPlugin implements Listener {
 
     private boolean isSafe(Location location) {
         Block feet = location.getBlock();
-        Block head = location.clone()
-                .add(0, 1, 0)
-                .getBlock();
+        Block head = location.clone().add(0, 1, 0).getBlock();
 
         return !feet.getType().isOccluding()
                 && !head.getType().isOccluding();
     }
 
-    private boolean isCooldown(Player player) {
+    private boolean hasCooldown(Player player) {
         if (cooldownSeconds <= 0) return false;
 
-        long now = System.currentTimeMillis();
+        Long expire = cooldowns.get(player.getUniqueId());
+        return expire != null && System.currentTimeMillis() < expire;
+    }
 
-        cooldown.entrySet()
-                .removeIf(entry -> entry.getValue() <= now);
+    private void applyCooldown(Player player) {
+        if (cooldownSeconds <= 0) return;
 
-        UUID uuid = player.getUniqueId();
-        Long expire = cooldown.get(uuid);
-
-        if (expire == null || now >= expire) {
-            cooldown.put(
-                    uuid,
-                    now + cooldownSeconds * 1000L
-            );
-
-            return false;
-        }
-
-        return true;
+        cooldowns.put(
+                player.getUniqueId(),
+                System.currentTimeMillis() + cooldownSeconds * 1000L
+        );
     }
 }
